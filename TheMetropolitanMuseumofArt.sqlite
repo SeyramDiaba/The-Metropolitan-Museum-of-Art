@@ -1,0 +1,59 @@
+/*Inspecting met table*/
+SELECT * FROM met
+LIMIT 10;
+
+/* Number of art pieces in America Decorative collection */
+SELECT COUNT(*)
+FROM met;
+
+
+/* the number of pieces where the category includes ‘celery’.*/
+SELECT COUNT(*)
+FROM met
+WHERE category LIKE '%celery%';
+
+SELECT DISTINCT category
+FROM met
+WHERE category LIKE '%celery%';
+
+/* Title and medium of the oldest piece in the collection*/
+SELECT date, title, medium
+FROM met
+WHERE date LIKE '%1600%';
+
+/*Find the top 10 countries with the most pieces in the collection*/
+SELECT country, title, COUNT(*)
+FROM met
+WHERE country is NOT NULL
+GROUP BY 1
+ORDER BY 3 DESC
+LIMIT 10;
+
+/*Categories HAVING more than 100 pieces*/
+SELECT category, COUNT(*)
+FROM met
+GROUP BY 1
+HAVING COUNT(*) > 100;
+
+/* The number of pieces where the medium contains ‘gold’ or ‘silver’ 
+SELECT medium,title,COUNT(*)
+FROM met
+WHERE
+WHERE medium LIKE '%gold%'OR medium LIKE '%silver%'
+GROUP BY 1
+ORDER BY 3 DESC;
+*/
+
+/* The number of pieces where the medium contains ‘gold’ or ‘silver’ */
+SELECT CASE
+   WHEN medium LIKE '%gold%'   THEN 'Gold'
+   WHEN medium LIKE '%silver%' THEN 'Silver'
+   ELSE NULL
+  END AS 'Bling',
+  COUNT(*)
+FROM met
+WHERE Bling IS NOT NULL
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
